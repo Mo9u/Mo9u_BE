@@ -1,10 +1,16 @@
 package com.Mo9u.Mo9u.domain;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@NoArgsConstructor
+@Getter
 public class Subscribe {
 
     @Id
@@ -34,4 +40,17 @@ public class Subscribe {
 
     @Column(name = "sub_link")
     private String link;
+
+    @Builder
+    public Subscribe(Long id, String category, String name, String simpleContent, String mainContent, int maxPrice, int avgPrice, int minPrice, String link){
+        this.id = id;
+        this.category = category;
+        this.name = name;
+        this.simpleContent = simpleContent;
+        this.mainContent = mainContent;
+        this.maxPrice = maxPrice;
+        this.avgPrice = avgPrice;
+        this.minPrice = minPrice;
+        this.link = link;
+    }
 }
