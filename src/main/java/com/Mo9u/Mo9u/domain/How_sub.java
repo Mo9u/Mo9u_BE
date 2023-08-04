@@ -1,5 +1,8 @@
 package com.Mo9u.Mo9u.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
+@NoArgsConstructor
+@Getter
 public class How_sub {
 
     @Id
