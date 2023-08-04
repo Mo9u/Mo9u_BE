@@ -6,8 +6,9 @@ import com.Mo9u.Mo9u.domain.Subscribe;
 import com.Mo9u.Mo9u.repository.HowExitRepository;
 import com.Mo9u.Mo9u.repository.HowSubRepository;
 import com.Mo9u.Mo9u.repository.SubDetailRepository;
+import com.Mo9u.Mo9u.web.dto.SubListResponseDto;
 import com.Mo9u.Mo9u.web.dto.subscribeDetailDto;
-import com.Mo9u.Mo9u.web.dto.subscribeDto;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,5 +65,21 @@ public class SubDetailService {
                 exitContents
         );
        return subDto;
+    }
+
+    public List<SubListResponseDto> getAll() {
+        List<SubListResponseDto> result = new ArrayList<>();
+        for (Subscribe s : subDetailRepository.findAll()) {
+            SubListResponseDto sub = SubListResponseDto.builder()
+                .id(s.getId())
+                .category(s.getCategory())
+                .mainImage(s.getMainImage())
+                .name(s.getName())
+                .simpleContent(s.getSimpleContent())
+                .link(s.getLink()).build();
+            result.add(sub);
+        }
+
+        return result;
     }
 }

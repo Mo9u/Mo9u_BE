@@ -20,6 +20,9 @@ public class Subscribe {
     @Column(name = "sub_category")
     private String category;
 
+    @Column(name = "sub_main_img")
+    private String mainImage;
+
     @Column(name = "sub_name")
     private String name;
 
