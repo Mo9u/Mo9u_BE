@@ -75,8 +75,7 @@ public class SubDetailService {
                 .category(s.getCategory())
                 .mainImage(s.getMainImage())
                 .name(s.getName())
-                .simpleContent(s.getSimpleContent())
-                .link(s.getLink()).build();
+                .simpleContent(s.getSimpleContent()).build();
             result.add(sub);
         }
 

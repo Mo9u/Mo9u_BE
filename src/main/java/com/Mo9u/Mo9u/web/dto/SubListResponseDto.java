@@ -11,5 +11,4 @@ public class SubListResponseDto {
     private String mainImage;
     private String name;
     private String simpleContent;
-    private String link;
 }
