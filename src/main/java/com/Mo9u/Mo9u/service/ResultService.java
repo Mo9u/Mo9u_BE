@@ -28,11 +28,11 @@ public class ResultService {
 
         if (result != null) {
             return ResultDto.builder()
-                    .Id(result.getSubscribe().getId())
+                    .id(result.getSubscribe().getId())
                     .content(result.getContent())
-                    .intro(result.getIntro())
-                    .name(result.getName())
-                    .resImage(result.getResImage())
+                    .simpleContent(result.getSubscribe().getSimpleContent())
+                    .name(result.getSubscribe().getName())
+                    .mainImage(result.getSubscribe().getMainImage())
                     .build();
         } else {
             throw new RuntimeException("해당 ID의 테스트 결과를 찾을 수 없습니다.");

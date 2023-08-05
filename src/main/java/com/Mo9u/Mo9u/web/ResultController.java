@@ -17,11 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @CrossOrigin(origins = "*")
 public class ResultController {
     @Autowired
-    private ResultService resultService;
-
-    public ResultController(ResultService resultService){
-        this.resultService= resultService;
-    }
+    private final ResultService resultService;
 
     @GetMapping("/test/{id}")
     public ResponseEntity<ResultDto> getResult(@PathVariable Long id){

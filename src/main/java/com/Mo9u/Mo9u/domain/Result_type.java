@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 public class Result_type {
@@ -27,23 +26,4 @@ public class Result_type {
     @OneToOne
     @JoinColumn(name="sub_id")
     private Subscribe subscribe;
-
-    @Column(name="result_intro")
-    private String intro;
-
-    @Column(name = "result_name")
-    private String name;
-
-    @Column(name = "result_img")
-    private String resImage;
-
-    @Builder
-    public Result_type(Long id, String content, Subscribe subscribe, String intro, String name, String resImage){
-        this.id = id;
-        this.content = content;
-        this.subscribe = subscribe;
-        this.intro = intro;
-        this.name = name;
-        this.resImage = resImage;
-    }
 }

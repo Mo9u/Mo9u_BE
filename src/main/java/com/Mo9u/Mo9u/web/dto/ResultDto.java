@@ -5,21 +5,19 @@ import lombok.*;
 
 @NoArgsConstructor
 @Getter
-@Setter
-@ToString
 public class ResultDto {
-    private Long Id;
+    private Long id;
     private String content;
-    private String intro;
+    private String simpleContent;
     private String name;
-    private String resImage;
+    private String mainImage;
 
     @Builder
-    public ResultDto(Long Id, String content, String intro, String name, String resImage){
-        this.Id = Id;
+    public ResultDto(Long id, String content, String simpleContent, String name, String mainImage){
+        this.id = id;
         this.content = content;
-        this.intro = intro;
+        this.simpleContent = simpleContent;
         this.name = name;
-        this.resImage = resImage;
+        this.mainImage = mainImage;
     }
 }
