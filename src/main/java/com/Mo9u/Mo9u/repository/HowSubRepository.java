@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface HowSubRepository extends JpaRepository<How_sub, Integer> {
-    List<How_sub> findBySubscribe_Id(Long id);
+    List<How_sub> findBySubscribeId(Long id);
 }
