@@ -45,9 +45,10 @@ public class Subscribe {
     private String link;
 
     @Builder
-    public Subscribe(Long id, String category, String name, String simpleContent, String mainContent, int maxPrice, int avgPrice, int minPrice, String link){
+    public Subscribe(Long id, String category, String mainImage, String name, String simpleContent, String mainContent, int maxPrice, int avgPrice, int minPrice, String link){
         this.id = id;
         this.category = category;
+        this.mainImage = mainImage;
         this.name = name;
         this.simpleContent = simpleContent;
         this.mainContent = mainContent;

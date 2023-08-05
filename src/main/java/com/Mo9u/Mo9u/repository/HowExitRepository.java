@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface HowExitRepository  extends JpaRepository<How_exit, Integer> {
-    List<How_exit> findBySubscribe_Id(Long id);
+public interface HowExitRepository extends JpaRepository<How_exit, Integer> {
+    List<How_exit> findBySubscribeId(Long id);
 }
