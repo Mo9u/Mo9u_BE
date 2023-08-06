@@ -4,11 +4,10 @@ import lombok.*;
 
 @NoArgsConstructor
 @Getter
-@Setter
-@ToString
-public class subscribeDetailDto {
+public class SubscribeDetailDto {
     private Long id;
     private String category;
+    private String mainImage;
     private String name;
     private String simpleContent;
     private String[] mainContent;
@@ -25,9 +24,10 @@ public class subscribeDetailDto {
 
 
     @Builder
-    public subscribeDetailDto(Long id, String category, String name, String simpleContent, String[] mainContent, int maxPrice, int avgPrice, int minPrice, String link, String[] howSubImg, String[] howSubExplain, String[] howExitImg, String[] howExitExplain){
+    public SubscribeDetailDto(Long id, String category, String mainImage, String name, String simpleContent, String[] mainContent, int maxPrice, int avgPrice, int minPrice, String link, String[] howSubImg, String[] howSubExplain, String[] howExitImg, String[] howExitExplain){
         this.id = id;
         this.category = category;
+        this.mainImage = mainImage;
         this.name = name;
         this.simpleContent = simpleContent;
         this.mainContent = mainContent;

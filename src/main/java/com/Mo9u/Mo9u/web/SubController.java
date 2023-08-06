@@ -2,8 +2,8 @@ package com.Mo9u.Mo9u.web;
 
 import com.Mo9u.Mo9u.service.SubDetailService;
 import com.Mo9u.Mo9u.web.dto.SubListResponseDto;
-import com.Mo9u.Mo9u.web.dto.subDetailResultDto;
-import com.Mo9u.Mo9u.web.dto.subscribeDetailDto;
+import com.Mo9u.Mo9u.web.dto.SubDetailResultDto;
+import com.Mo9u.Mo9u.web.dto.SubscribeDetailDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class SubController {
     private final SubDetailService subDetailService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<subDetailResultDto> getSubDetail(@PathVariable Long id){
-        subscribeDetailDto subDto = subDetailService.getSubDetail(id);
-        return ResponseEntity.status(HttpStatus.OK).body(subDetailResultDto.createResult(200, subDto));
+    public ResponseEntity<SubDetailResultDto> getSubDetail(@PathVariable Long id){
+        SubscribeDetailDto subDto = subDetailService.getSubDetail(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new SubDetailResultDto(200, subDto));
     }
 
     @ResponseStatus(HttpStatus.BAD_GATEWAY)
