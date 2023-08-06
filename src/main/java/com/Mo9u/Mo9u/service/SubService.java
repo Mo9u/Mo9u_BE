@@ -9,6 +9,7 @@ import com.Mo9u.Mo9u.repository.SubDetailRepository;
 import com.Mo9u.Mo9u.web.dto.SubListResponseDto;
 import com.Mo9u.Mo9u.web.dto.SubscribeDetailDto;
 import java.util.ArrayList;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class SubDetailService {
+public class SubService {
     private final SubDetailRepository subDetailRepository;
     private final HowSubRepository howSubRepository;
     private final HowExitRepository howExitRepository;
