@@ -1,6 +1,5 @@
 package com.Mo9u.Mo9u.web.dto;
 
-import com.Mo9u.Mo9u.domain.Subscribe;
 import lombok.*;
 
 @NoArgsConstructor
