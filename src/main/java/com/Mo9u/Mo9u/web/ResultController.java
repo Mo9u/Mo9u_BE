@@ -1,6 +1,5 @@
 package com.Mo9u.Mo9u.web;
 
-import com.Mo9u.Mo9u.domain.Subscribe;
 import com.Mo9u.Mo9u.service.ResultService;
 import com.Mo9u.Mo9u.web.dto.ResultDto;
 import lombok.RequiredArgsConstructor;
