@@ -1,19 +1,19 @@
 package com.Mo9u.Mo9u.web;
 
 import com.Mo9u.Mo9u.service.SubService;
+import com.Mo9u.Mo9u.web.dto.ResultDto;
 import com.Mo9u.Mo9u.web.dto.SubListResponseDto;
 import com.Mo9u.Mo9u.web.dto.SubDetailResultDto;
 import com.Mo9u.Mo9u.web.dto.SubscribeDetailDto;
 import java.util.List;
+
+import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -26,6 +26,10 @@ public class SubController {
     @GetMapping("/{id}")
     public ResponseEntity<SubDetailResultDto> getSubDetail(@PathVariable Long id){
         SubscribeDetailDto subDto = subDetailService.getSubDetail(id);
+
+        if(subDto == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SubDetailResultDto(400, "잘못된 sub ID 입니다."));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(new SubDetailResultDto(200, subDto));
     }
 
@@ -34,4 +38,10 @@ public class SubController {
         List<SubListResponseDto> subList = subDetailService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(subList);
     }
+
+//    @ExceptionHandler(TypeMismatchException.class)
+//    public String handleTypeMismatchException() {
+//        return "member/invalidId";
+//    }
+
 }
