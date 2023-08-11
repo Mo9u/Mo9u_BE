@@ -25,7 +25,7 @@ public class Sub_manage {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    private User memberId;
+    private User userId;
 
     @Column
     private LocalDate creditDate;

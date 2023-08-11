@@ -2,7 +2,7 @@ package com.Mo9u.Mo9u.web;
 
 import com.Mo9u.Mo9u.service.SubService;
 import com.Mo9u.Mo9u.web.dto.SubListResponseDto;
-import com.Mo9u.Mo9u.web.dto.SubDetailResultDto;
+import com.Mo9u.Mo9u.web.dto.HttpResponseDto;
 import com.Mo9u.Mo9u.web.dto.SubscribeDetailDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +24,9 @@ public class SubController {
     private final SubService subDetailService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<SubDetailResultDto> getSubDetail(@PathVariable Long id){
+    public ResponseEntity<HttpResponseDto> getSubDetail(@PathVariable Long id){
         SubscribeDetailDto subDto = subDetailService.getSubDetail(id);
-        return ResponseEntity.status(HttpStatus.OK).body(new SubDetailResultDto(200, subDto));
+        return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, subDto));
     }
 
     @GetMapping("/list")

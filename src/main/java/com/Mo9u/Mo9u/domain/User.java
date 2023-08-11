@@ -19,10 +19,10 @@ public class User {
     private Long id;
 
     @Column
-    private String userId;
+    private String loginId;
 
     @Column
-    private String userPassword;
+    private String loginPassword;
 
     @Column
     private String userName;
@@ -33,6 +33,6 @@ public class User {
     @Column
     private boolean reception;
 
-    @OneToMany(mappedBy = "memberId")
+    @OneToMany(mappedBy = "userId")
     private List<Sub_manage> manages = new ArrayList<>();
 }
