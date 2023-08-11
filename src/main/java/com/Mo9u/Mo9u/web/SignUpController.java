@@ -1,7 +1,7 @@
 package com.Mo9u.Mo9u.web;
 
 import com.Mo9u.Mo9u.service.MessageService;
-import com.Mo9u.Mo9u.web.dto.SubDetailResultDto;
+import com.Mo9u.Mo9u.web.dto.HttpResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ public class SignUpController {
     private final MessageService messageService;
 
     @PostMapping("/check/sendSMS")
-    public ResponseEntity<SubDetailResultDto> sendSMS(@RequestBody String phoneNumber) {
+    public ResponseEntity<HttpResponseDto> sendSMS(@RequestBody String phoneNumber) {
 
         Random rand  = new Random();
         String numStr = "";
@@ -28,6 +28,6 @@ public class SignUpController {
         System.out.println("수신자 번호 : " + phoneNumber);
         System.out.println("인증번호 : " + numStr);
         messageService.sendMessage(phoneNumber,numStr);
-        return ResponseEntity.status(HttpStatus.OK).body(new SubDetailResultDto(200, numStr));
+        return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, numStr));
     }
 }
