@@ -9,7 +9,6 @@ import com.Mo9u.Mo9u.repository.SubDetailRepository;
 import com.Mo9u.Mo9u.web.dto.SubListResponseDto;
 import com.Mo9u.Mo9u.web.dto.SubscribeDetailDto;
 import java.util.ArrayList;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +26,13 @@ public class SubService {
     @Transactional
     public SubscribeDetailDto getSubDetail(Long sub_id){
         Subscribe subscribe = subDetailRepository.findById(sub_id);
+        System.out.println(subscribe);
+        if(subscribe == null){
+            return null;
+        }
 
         List<How_sub> howSubs = howSubRepository.findBySubscribeId(sub_id);
+        System.out.println(howSubs);
 
         // 구독 방법 배열
         List<String> subContentList = howSubs.stream().map(How_sub::getHowExplain).collect(Collectors.toList());
