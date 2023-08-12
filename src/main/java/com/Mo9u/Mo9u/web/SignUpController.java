@@ -27,7 +27,7 @@ public class SignUpController {
 
         System.out.println("수신자 번호 : " + phoneNumber);
         System.out.println("인증번호 : " + numStr);
-        messageService.sendMessage(phoneNumber,numStr);
+        messageService.sendAuthMessage(phoneNumber,numStr);
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, numStr));
     }
 }
