@@ -16,7 +16,7 @@ public class ManageService {
     private final SubManageRepository subManageRepository;
     private final MessageService messageService;
 
-    @Scheduled(cron = "0 15 1 * * *")
+    @Scheduled(cron = "0 0 12 * * *")
     public void checkPaymentDate(){
 
         LocalDate tomorrow = LocalDate.now().plusDays(1);
