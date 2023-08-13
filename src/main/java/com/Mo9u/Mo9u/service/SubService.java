@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class SubDetailService {
+public class SubService {
     private final SubDetailRepository subDetailRepository;
     private final HowSubRepository howSubRepository;
     private final HowExitRepository howExitRepository;
@@ -26,8 +26,13 @@ public class SubDetailService {
     @Transactional
     public SubscribeDetailDto getSubDetail(Long sub_id){
         Subscribe subscribe = subDetailRepository.findById(sub_id);
+        System.out.println(subscribe);
+        if(subscribe == null){
+            return null;
+        }
 
         List<How_sub> howSubs = howSubRepository.findBySubscribeId(sub_id);
+        System.out.println(howSubs);
 
         // 구독 방법 배열
         List<String> subContentList = howSubs.stream().map(How_sub::getHowExplain).collect(Collectors.toList());
