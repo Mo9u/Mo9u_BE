@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SubDetailRepository extends JpaRepository<Subscribe, Integer> {
     Subscribe findById(Long id);
+
+    Subscribe findByName(String name);
 }

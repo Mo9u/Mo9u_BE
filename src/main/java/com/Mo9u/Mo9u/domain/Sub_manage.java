@@ -8,10 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
+@NoArgsConstructor
 public class Sub_manage {
 
     @Id
@@ -32,4 +38,13 @@ public class Sub_manage {
 
     @Column
     private int creditPrice;
+
+    @Builder
+    public Sub_manage(Long id, Subscribe subId, User userId, LocalDate creditDate, int creditPrice){
+        this.id = id;
+        this.subId = subId;
+        this.userId = userId;
+        this.creditDate = creditDate;
+        this.creditPrice = creditPrice;
+    }
 }
