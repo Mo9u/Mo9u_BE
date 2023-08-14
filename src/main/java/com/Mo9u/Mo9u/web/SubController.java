@@ -38,10 +38,4 @@ public class SubController {
         List<SubListResponseDto> subList = subDetailService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(subList);
     }
-
-//    @ExceptionHandler(TypeMismatchException.class)
-//    public String handleTypeMismatchException() {
-//        return "member/invalidId";
-//    }
-
 }

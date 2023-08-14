@@ -76,7 +76,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult);
         }
-        userService.signUp(signUpDto.toEntity());
+        userService.signUp(signUpDto);
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, "회원가입 성공"));
 
     }

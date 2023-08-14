@@ -7,8 +7,6 @@ import com.Mo9u.Mo9u.web.dto.user.UserLoginDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -41,7 +39,7 @@ public class UserService {
     }
 
     // 회원가입
-    public void signUp(@Valid User user){
-        userRepository.save(user);
+    public void signUp(SignUpDto signUpDto){
+        userRepository.save(signUpDto.toEntity());
     }
 }
