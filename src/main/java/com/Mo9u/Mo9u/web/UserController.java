@@ -1,5 +1,6 @@
 package com.Mo9u.Mo9u.web;
 
+import com.Mo9u.Mo9u.service.ManageService;
 import com.Mo9u.Mo9u.service.UserService;
 import com.Mo9u.Mo9u.web.dto.user.CheckIdDto;
 import com.Mo9u.Mo9u.web.dto.HttpResponseDto;
@@ -23,12 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final ManageService manageService;
 
     @PostMapping("/user/login")
     public ResponseEntity<Object> userLogin(@Valid @RequestBody UserLoginDto loginDto,
         BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
         }
 
         Long userId = userService.login(loginDto);
@@ -47,15 +49,15 @@ public class UserController {
     public ResponseEntity<Object> userLogout(HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
-        if(session == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new HttpResponseDto(400, "로그인 상태가 아닙니다"));
+        if (session == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new HttpResponseDto(400, "로그인 상태가 아닙니다"));
         }
 
         session.invalidate();
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, "로그아웃 완료"));
 
     }
-
     @PostMapping("/signUp/checkId")
     public ResponseEntity<Object> checkId(@Valid @RequestBody CheckIdDto checkIdDto, BindingResult bindingResult){
         System.out.println(checkIdDto.getLoginId());
