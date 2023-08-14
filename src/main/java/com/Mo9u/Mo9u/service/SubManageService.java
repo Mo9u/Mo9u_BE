@@ -3,6 +3,7 @@ package com.Mo9u.Mo9u.service;
 import com.Mo9u.Mo9u.domain.*;
 import com.Mo9u.Mo9u.repository.SubDetailRepository;
 import com.Mo9u.Mo9u.repository.SubManageRepository;
+import com.Mo9u.Mo9u.repository.UserRepository;
 import com.Mo9u.Mo9u.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,42 +19,43 @@ public class SubManageService {
 
     private final SubManageRepository subManageRepository;
     private final SubDetailRepository subDetailRepository;
-    //private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
+
+    // 구독리스트에 추가
     @Transactional
-    public Long addSubManage(SubManageDto subManageDto) {
-        Subscribe subscribe = subDetailRepository.findByName(subManageDto.getName());
+    public void addSubManage(SubManageDto subManageDto, Long userId) {
+        Subscribe subscribe = subDetailRepository.findById(subManageDto.getSubId());
+        if (subscribe == null) {
+            throw new IllegalArgumentException("구독이 없습니다");
+        }
 
-        /*
-        UserLoginDto userLoginDto = UserLoginDto.builder()
-                .id(subManageDto.getUserId()) // Use the getId() method
-                .build();
-        */
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다"));
 
         Sub_manage subManage = Sub_manage.builder()
-                .subId(subscribe) // Set the subscription ID
+                .subscribe(subscribe)
+                .user(user)
                 .creditDate(subManageDto.getCreditDate())
                 .creditPrice(subManageDto.getCreditPrice())
                 .build();
 
-        Sub_manage savedSubManage = subManageRepository.save(subManage);
+        subManageRepository.save(subManage);
 
-        return savedSubManage.getId();
     }
 
 
     //구독관리리스트 불러오기
-    public List<SubManageDto> getAll() {
+    public List<SubManageDto> getAll(String loginId) {
+        Optional<User> user = userRepository.findByLoginId(loginId);
+
+
         List<SubManageDto> result = new ArrayList<>();
         for (Sub_manage s : subManageRepository.findAll()) {
             SubManageDto sub = SubManageDto.builder()
-                    .id(s.getId())
-                    .subId(s.getSubId().getId())
-                    .userId(s.getUserId().getId())
-                    .name(s.getSubId().getName())
+                    .subId(s.getSubscribe().getId())
                     .creditDate(s.getCreditDate())
-                    .creditPrice(s.getCreditPrice())
-                    .mainImage(s.getSubId().getMainImage()).build();
+                    .creditPrice(s.getCreditPrice()).build();
             result.add(sub);
         }
 

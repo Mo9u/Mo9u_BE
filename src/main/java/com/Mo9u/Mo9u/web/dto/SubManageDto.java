@@ -8,25 +8,16 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class SubManageDto {
-        private Long id;
         private Long subId;
-        private Long userId;
-        private String name;
         private LocalDate creditDate;
         private int creditPrice;
-        private String mainImage;
 
         @Builder
-        public SubManageDto(Long id, Long subId, Long userId, String name, LocalDate creditDate, int creditPrice, String mainImage){
-            this.id = id;
+        public SubManageDto(Long subId, LocalDate creditDate, int creditPrice){
             this.subId = subId;
-            this.userId = userId;
-            this.name = name;
             this.creditDate = creditDate;
             this.creditPrice = creditPrice;
-            this.mainImage = mainImage;
         }
 }

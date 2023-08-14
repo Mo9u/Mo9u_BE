@@ -1,5 +1,7 @@
 package com.Mo9u.Mo9u.web;
 
+import com.Mo9u.Mo9u.domain.User;
+import com.Mo9u.Mo9u.repository.UserRepository;
 import com.Mo9u.Mo9u.service.SubManageService;
 import com.Mo9u.Mo9u.service.UserService;
 import com.Mo9u.Mo9u.web.dto.*;
@@ -8,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -17,6 +20,7 @@ import java.util.List;
 public class SubManageController {
 
     private final SubManageService subManageService;
+    private final UserRepository userRepository;
     private final UserService userService;
 
 
@@ -29,18 +33,18 @@ public class SubManageController {
         }*/
 
 
-        //추가
-        @PostMapping("/list")
-        public ResponseEntity<HttpResponseDto> addSubManage(@RequestBody SubManageDto subManageDto) {
-            Long subManageId = subManageService.addSubManage(subManageDto);
-            return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, "추가성공"));
-        }
+    // 추가
+    @PostMapping("/list")
+    public ResponseEntity<HttpResponseDto> addSubManage(@RequestBody SubManageDto subManageDto) {
+        subManageService.addSubManage(subManageDto, 1L);
+        return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, "추가성공"));
+    }
 
 
     //조회 (내 구독리스트 쫙~)
     @GetMapping("/list")
-    public ResponseEntity<List> listSubManage() {
-        List<SubManageDto> subManageList = subManageService.getAll();
+    public ResponseEntity<List<SubManageDto>> listSubManage(@PathVariable String loginId) {
+        List<SubManageDto> subManageList = subManageService.getAll(loginId);
         return ResponseEntity.status(HttpStatus.OK).body(subManageList);
     }
 

@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 public class Sub_manage {
@@ -40,10 +39,10 @@ public class Sub_manage {
     private int creditPrice;
 
     @Builder
-    public Sub_manage(Long id, Subscribe subId, User userId, LocalDate creditDate, int creditPrice){
+    public Sub_manage(Long id, Subscribe subscribe, User user, LocalDate creditDate, int creditPrice){
         this.id = id;
-        this.subId = subId;
-        this.userId = userId;
+        this.subscribe = subscribe;
+        this.user = user;
         this.creditDate = creditDate;
         this.creditPrice = creditPrice;
     }
