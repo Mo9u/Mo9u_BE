@@ -18,8 +18,6 @@ import java.util.List;
 public class SubManageController {
 
     private final SubManageService subManageService;
-    private final UserRepository userRepository;
-    private final UserService userService;
 
     // 추가
     @PostMapping
