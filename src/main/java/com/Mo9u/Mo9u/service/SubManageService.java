@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +23,7 @@ public class SubManageService {
 
     // 구독리스트에 추가
     @Transactional
-    public void addSubManage(SubManageDto subManageDto, Long userId) {
+    public void addSubManage(SubManageRequestDto subManageDto, Long userId) {
         Subscribe subscribe = subDetailRepository.findById(subManageDto.getSubId());
         if (subscribe == null) {
             throw new IllegalArgumentException("구독이 없습니다");
@@ -46,19 +45,21 @@ public class SubManageService {
 
 
     //구독관리리스트 불러오기
-    public List<SubManageDto> getAll(String loginId) {
-        Optional<User> user = userRepository.findByLoginId(loginId);
+    public List<SubManageResponseDto> getAll(Long userId) {
+        List<SubManageResponseDto> result = new ArrayList<>();
 
-
-        List<SubManageDto> result = new ArrayList<>();
-        for (Sub_manage s : subManageRepository.findAll()) {
-            SubManageDto sub = SubManageDto.builder()
-                    .subId(s.getSubscribe().getId())
-                    .creditDate(s.getCreditDate())
-                    .creditPrice(s.getCreditPrice()).build();
-            result.add(sub);
+        List<Sub_manage> subManages = userRepository.findById(userId).get().getManages();
+        for (Sub_manage subManage : subManages) {
+            SubManageResponseDto dto = SubManageResponseDto.builder()
+                    .id(subManage.getId())
+                    .subId(subManage.getSubscribe().getId())
+                    .creditPrice(subManage.getCreditPrice())
+                    .creditDate(subManage.getCreditDate())
+                    .subName(subManage.getSubscribe().getName())
+                    .subImage(subManage.getSubscribe().getMainImage())
+                    .build();
+            result.add(dto);
         }
-
         return result;
     }
 
