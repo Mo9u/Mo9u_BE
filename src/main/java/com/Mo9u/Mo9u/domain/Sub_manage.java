@@ -27,11 +27,11 @@ public class Sub_manage {
 
     @ManyToOne
     @JoinColumn(name = "sub_id")
-    private Subscribe subId;
+    private Subscribe subscribe;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    private User userId;
+    private User user;
 
     @Column
     private LocalDate creditDate;

@@ -33,6 +33,6 @@ public class User {
     @Column
     private boolean reception;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user")
     private List<Sub_manage> manages = new ArrayList<>();
 }
