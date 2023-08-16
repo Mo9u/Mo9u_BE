@@ -13,7 +13,6 @@ public class ResultService {
 
     private final ResultRepository resultRepository;
 
-    @Transactional(readOnly = true)
     public ResultDto getResult(Long id) {
         Result_type result = resultRepository.findById(id);
 

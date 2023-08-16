@@ -1,19 +1,17 @@
 package com.Mo9u.Mo9u.web;
 
+import com.Mo9u.Mo9u.service.SubManageService;
 import com.Mo9u.Mo9u.service.SubService;
 import com.Mo9u.Mo9u.web.dto.HttpResponseDto;
-import com.Mo9u.Mo9u.web.dto.ResultDto;
+import com.Mo9u.Mo9u.web.dto.SubListDto;
 import com.Mo9u.Mo9u.web.dto.SubListResponseDto;
 import com.Mo9u.Mo9u.web.dto.SubscribeDetailDto;
 import java.util.List;
 
-import com.sun.istack.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -22,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class SubController {
 
     private final SubService subDetailService;
+    private final SubManageService subManageService;
 
     @GetMapping("/{id}")
     public ResponseEntity<HttpResponseDto> getSubDetail(@PathVariable Long id){
@@ -34,8 +33,14 @@ public class SubController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List> getSubList(){
+    public ResponseEntity<HttpResponseDto> getSubList(){
         List<SubListResponseDto> subList = subDetailService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(subList);
+        return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, subList));
+    }
+
+    @GetMapping("/names")
+    public ResponseEntity<HttpResponseDto> getAllSubName() {
+        List<SubListDto> subscriptions = subManageService.subIdName();
+        return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, subscriptions));
     }
 }
