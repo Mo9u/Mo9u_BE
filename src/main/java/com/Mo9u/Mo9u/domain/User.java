@@ -35,19 +35,15 @@ public class User {
     @Column
     private String userTel;
 
-    @Column
-    private boolean reception;
-
     @OneToMany(mappedBy = "user")
     private List<Sub_manage> manages = new ArrayList<>();
 
-    public User(Long id, String loginId, String loginPassword, String userName, String userTel, boolean reception, List<Sub_manage> manages){
+    public User(Long id, String loginId, String loginPassword, String userName, String userTel, List<Sub_manage> manages){
         this.id = id;
         this.loginId = loginId;
         this.loginPassword = loginPassword;
         this.userName = userName;
         this.userTel = userTel;
-        this.reception = reception;
         this.manages = manages;
     }
 }

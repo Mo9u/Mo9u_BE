@@ -55,11 +55,9 @@ public class MessageService {
         try {
             JSONObject obj = coolsms.send(params);
             System.out.println(obj.toString());
-            System.out.println("!");
         } catch (CoolsmsException e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCode());
-            System.out.println("?");
         }
     }
 }
