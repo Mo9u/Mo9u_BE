@@ -47,14 +47,8 @@ public class SubManageController {
     @GetMapping
     public ResponseEntity<HttpResponseDto> listSubManage(Authentication auth) {
         String loginId = auth.getName();
-        Long userId = userService.getUserIdByLoginId(loginId);
-
-        List<SubManageResponseDto> subManageList = subManageService.getAll(userId);
-
-        if (subManageList.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new HttpResponseDto(401, "구독서비스가 없습니다"));
-        }return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, subManageList));
+        List<SubManageResponseDto> subManageList = subManageService.getAll(userService.getUserIdByLoginId(loginId));
+        return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, subManageList));
     }
 
     //삭제
