@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -45,7 +42,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, session.getId()));
     }
 
-    @PostMapping("/user/logout")
+    @GetMapping("/user/logout")
     public ResponseEntity<Object> userLogout(HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);

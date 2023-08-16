@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SubManageRequestDto {
         private Long subId;
-    private LocalDate creditDate;
-    private int creditPrice;
+        private LocalDate creditDate;
+        private int creditPrice;
 
         @Builder
         public SubManageRequestDto(Long subId, LocalDate creditDate, int creditPrice){
