@@ -7,7 +7,6 @@ import com.Mo9u.Mo9u.repository.UserRepository;
 import com.Mo9u.Mo9u.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +21,10 @@ public class SubManageService {
 
 
     // 구독리스트에 추가
-    @Transactional
     public void addSubManage(SubManageRequestDto subManageDto, Long userId) {
         Subscribe subscribe = subDetailRepository.findById(subManageDto.getSubId());
-        if (subscribe == null) {
-            throw new IllegalArgumentException("구독이 없습니다");
-        }
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다"));
+        User user = userRepository.findById(userId).get();
 
         Sub_manage subManage = Sub_manage.builder()
                 .subscribe(subscribe)
@@ -64,7 +58,6 @@ public class SubManageService {
     }
 
     //구독 리스트 조회
-    @Transactional
     public List<SubListDto> subIdName() {
         List<Subscribe> subscriptions = subDetailRepository.findAll();
         List<SubListDto> result = new ArrayList<>();
@@ -80,8 +73,13 @@ public class SubManageService {
     }
 
     //구독관리리스트 삭제
-    @Transactional
-    public void deleteSubManage(Long subManageId) {
-        subManageRepository.deleteById(subManageId);
+    public boolean deleteSubManage(Long userId, Long subManageId) {
+        //삭제하고자 하는 구독관리가 로그인한 유저의 것이면 삭제
+        if(subManageRepository.findById(subManageId).get().getUser().getId().equals(userId)){
+            subManageRepository.deleteById(subManageId);
+            return true;
+        }
+        //아니라면
+        return false;
     }
 }

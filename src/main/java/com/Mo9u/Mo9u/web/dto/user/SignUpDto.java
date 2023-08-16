@@ -21,15 +21,12 @@ public class SignUpDto {
     @NotBlank
     private String userTel;
 
-    private boolean reception;
-
     public User toEntity() {
         return User.builder()
                 .loginId(loginId)
                 .loginPassword(loginPassword)
                 .userName(userName)
                 .userTel(userTel)
-                .reception(reception)
                 .build();
     }
 }
