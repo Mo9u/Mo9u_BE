@@ -78,7 +78,7 @@ public class UserController {
 
         // 로그인 성공 => Jwt Token 발급
         String secretKey = "catholicuniversitykorea";
-        long expireTimeMs = 1000 * 60 * 60;     // Token 유효 시간 = 60분
+        long expireTimeMs = 1000 * 60 * 60 * 24;     // Token 유효 시간 = 60분
 
         String jwtToken = JwtTokenUtil.createToken(loginId, secretKey, expireTimeMs);
 
