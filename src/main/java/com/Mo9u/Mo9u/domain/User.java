@@ -7,9 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
+@NoArgsConstructor
 @Entity(name = "member")
 public class User {
 
@@ -30,9 +35,15 @@ public class User {
     @Column
     private String userTel;
 
-    @Column
-    private boolean reception;
-
     @OneToMany(mappedBy = "user")
     private List<Sub_manage> manages = new ArrayList<>();
+
+    public User(Long id, String loginId, String loginPassword, String userName, String userTel, List<Sub_manage> manages){
+        this.id = id;
+        this.loginId = loginId;
+        this.loginPassword = loginPassword;
+        this.userName = userName;
+        this.userTel = userTel;
+        this.manages = manages;
+    }
 }
