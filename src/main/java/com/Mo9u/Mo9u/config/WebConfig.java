@@ -15,7 +15,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000")
                 .allowedHeaders("Content-Type", "X-AUTH-TOKEN", "Authorization", "Bearer")
                 .allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.DELETE.name(), HttpMethod.PUT.name(), HttpMethod.PATCH.name(), HttpMethod.OPTIONS.name())
-//                .allowedMethods("POST", "GET", "DELETE", "PUT", "OPTION")
                 .allowCredentials(false)
                 .exposedHeaders("Authorization", "X-AUTH-TOKEN", "Bearer")
                 .maxAge(3000);
