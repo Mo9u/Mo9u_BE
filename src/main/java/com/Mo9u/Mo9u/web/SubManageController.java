@@ -22,16 +22,28 @@ public class SubManageController {
     private final SubManageService subManageService;
     private final UserService userService;
 
-    // 추가
+    //추가
     @PostMapping
     public ResponseEntity<HttpResponseDto> addSubManage(@RequestBody SubManageRequestDto subManageDto, Authentication auth) {
         String loginId = auth.getName();
+        Long userId = userService.getUserIdByLoginId(loginId);
+
+        List<SubManageResponseDto> subManageList = subManageService.getAll(userId);
+
+        for (SubManageResponseDto existSub : subManageList) {
+            if (existSub.getSubId().equals(subManageDto.getSubId())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new HttpResponseDto(401, "이미 존재하는 구독서비스입니다"));
+            }
+        }
+
         subManageService.addSubManage(subManageDto, userService.getUserIdByLoginId(loginId));
+
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, "추가성공"));
     }
 
 
-    //조회 (내 구독리스트 쫙~)
+    //조회
     @GetMapping
     public ResponseEntity<HttpResponseDto> listSubManage(Authentication auth) {
         String loginId = auth.getName();
