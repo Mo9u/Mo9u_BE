@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
+
+import static java.lang.Integer.parseInt;
 
 @RequiredArgsConstructor
 @Service
@@ -43,13 +46,14 @@ public class MessageService {
 
     public void sendNotificationMessage(String userTel, String userName, String date,
         String subName, String price) {
+        DecimalFormat formatter = new DecimalFormat("###,###");
         params = new HashMap<>();
         params.put("to", userTel);
         params.put("from", fromNumber);
         params.put("type", "LMS");
         params.put("text",
-            "[모두의 구독] 정기 구독서비스 결제 예정 알림\n" + userName + "님, 내일 " + date + "은 " + subName
-                + "정기 결제일입니다." + "\n결제 예정 금액 : " + price);
+            "[모두의 구독]\n정기 구독서비스 결제 예정 알림\n" + userName + "님, 내일 " + date + "은\n" + subName
+                + " 정기 결제일입니다." + "\n결제 예정 금액 : " + formatter.format(Integer.parseInt(price)) + "원");
         params.put("app_version", "test app 1.2"); // application name and version
 
         try {

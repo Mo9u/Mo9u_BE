@@ -5,6 +5,7 @@ import com.Mo9u.Mo9u.service.MessageService;
 import com.Mo9u.Mo9u.service.UserService;
 import com.Mo9u.Mo9u.web.dto.user.CheckIdDto;
 import com.Mo9u.Mo9u.web.dto.HttpResponseDto;
+import com.Mo9u.Mo9u.web.dto.user.PhoneAuthDto;
 import com.Mo9u.Mo9u.web.dto.user.SignUpDto;
 import com.Mo9u.Mo9u.web.dto.user.UserLoginDto;
 import java.util.Random;
@@ -29,29 +30,29 @@ public class UserController {
     private final MessageService messageService;
 
     @PostMapping("/signUp/checkId")
-    public ResponseEntity<Object> checkId(@Valid @RequestBody CheckIdDto checkIdDto, BindingResult bindingResult){
+    public ResponseEntity<Object> checkId(@RequestBody CheckIdDto checkIdDto, BindingResult bindingResult){
         System.out.println(checkIdDto.getLoginId());
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
         }
         if(userService.checkLoginId(checkIdDto.getLoginId()) == true){
-            return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, "이미 존재하는 아이디입니다."));
+            return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(201, "이미 존재하는 아이디입니다."));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, "사용 가능한 아이디입니다."));
         }
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<Object> checkId(@Valid @RequestBody SignUpDto signUpDto, BindingResult bindingResult){
+    public ResponseEntity<Object> checkId(@RequestBody SignUpDto signUpDto, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
         }
         userService.signUp(signUpDto);
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, "회원가입 성공"));
     }
 
     @PostMapping("/signUp/sendSMS")
-    public ResponseEntity<HttpResponseDto> sendSMS(@RequestBody String phoneNumber) {
+    public ResponseEntity<HttpResponseDto> sendSMS(@RequestBody PhoneAuthDto phoneAuthDto) {
 
         Random rand  = new Random();
         String numStr = "";
@@ -60,9 +61,9 @@ public class UserController {
             numStr+=ran;
         }
 
-        System.out.println("수신자 번호 : " + phoneNumber);
+        System.out.println("수신자 번호 : " + phoneAuthDto.getPhoneNumber());
         System.out.println("인증번호 : " + numStr);
-        messageService.sendAuthMessage(phoneNumber,numStr);
+        messageService.sendAuthMessage(phoneAuthDto.getPhoneNumber(), numStr);
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, numStr));
     }
 
@@ -72,7 +73,7 @@ public class UserController {
 
         // 로그인 아이디나 비밀번호가 틀린 경우 global error return
         if(loginId == null) {
-            return ResponseEntity.status(401).body(new HttpResponseDto(401, "로그인 아이디 또는 비밀번호가 틀렸습니다."));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HttpResponseDto(401, "로그인 아이디 또는 비밀번호가 틀렸습니다."));
         }
 
         // 로그인 성공 => Jwt Token 발급
