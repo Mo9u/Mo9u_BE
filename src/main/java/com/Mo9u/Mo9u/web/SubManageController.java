@@ -32,7 +32,7 @@ public class SubManageController {
 
         for (SubManageResponseDto existSub : subManageList) {
             if (existSub.getSubId().equals(subManageDto.getSubId())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body(new HttpResponseDto(401, "이미 존재하는 구독서비스입니다"));
             }
         }

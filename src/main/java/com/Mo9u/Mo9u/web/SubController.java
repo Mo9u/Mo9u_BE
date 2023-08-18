@@ -27,7 +27,7 @@ public class SubController {
         SubscribeDetailDto subDto = subDetailService.getSubDetail(id);
 
         if(subDto == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new HttpResponseDto(400, "잘못된 sub ID 입니다."));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HttpResponseDto(401, "잘못된 sub ID 입니다."));
         }
         return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, subDto));
     }
