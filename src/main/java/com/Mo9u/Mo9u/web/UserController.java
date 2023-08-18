@@ -52,7 +52,11 @@ public class UserController {
     }
 
     @PostMapping("/signUp/sendSMS")
-    public ResponseEntity<HttpResponseDto> sendSMS(@RequestBody PhoneAuthDto phoneAuthDto) {
+    public ResponseEntity<HttpResponseDto> sendSMS(@Valid @RequestBody PhoneAuthDto phoneAuthDto, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HttpResponseDto(401, "전화번호는 필수 입력값 입니다."));
+        }
 
         Random rand  = new Random();
         String numStr = "";
@@ -82,7 +86,9 @@ public class UserController {
 
         String jwtToken = JwtTokenUtil.createToken(loginId, secretKey, expireTimeMs);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, jwtToken));
+        String result = jwtToken + "/" + userService.getUserNameByLoginId(loginId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new HttpResponseDto(200, result));
     }
 
 }

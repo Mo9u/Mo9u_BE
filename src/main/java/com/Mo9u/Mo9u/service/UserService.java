@@ -55,4 +55,9 @@ public class UserService {
         Optional<User> byLoginId = userRepository.findByLoginId(loginId);
         return byLoginId.get().getId();
     }
+
+    public String getUserNameByLoginId(String loginId) {
+        Optional<User> byLoginId = userRepository.findByLoginId(loginId);
+        return byLoginId.get().getUserName();
+    }
 }
