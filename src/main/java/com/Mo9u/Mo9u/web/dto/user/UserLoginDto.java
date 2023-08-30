@@ -1,4 +1,4 @@
-package com.Mo9u.Mo9u.web.dto;
+package com.Mo9u.Mo9u.web.dto.user;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;

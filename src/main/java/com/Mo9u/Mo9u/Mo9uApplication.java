@@ -2,10 +2,12 @@ package com.Mo9u.Mo9u;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableScheduling
 @SpringBootApplication
@@ -14,12 +16,4 @@ public class Mo9uApplication {
 		SpringApplication.run(Mo9uApplication.class, args);
 	}
 
-	@Bean
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource messageSource = new
-			ResourceBundleMessageSource();
-		messageSource.setBasenames("messages", "errors");
-		messageSource.setDefaultEncoding("utf-8");
-		return messageSource;
-	}
 }
